@@ -36,7 +36,7 @@ $dbh=null;*/
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Barcode Tag Generator</title>
+    <title>Inventory Count</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="JsBarcode.all.min.js"></script>
     <!--<script src="bar.js"></script>-->
@@ -49,8 +49,8 @@ $dbh=null;*/
 <body>
 <div class="container" id="container1">
     <div class="jumbotron">
-        <h1>Teletime Barcode Tag Generator</h1>
-        <p>Enter Data to generate tag</p>
+        <h1>Count Inventory</h1>
+        <p>Select model to add to inventory. DO NOT REFRESH AFTER ADDING.</p>
     </div>
     <div class="input-field">
         <form id="calculator" method="post" action="">
