@@ -1,35 +1,37 @@
 <?php
 
-$model = isset($_POST['model']) ? $_POST['model'] : '';
-$error = -1;
+    $model = isset($_POST['model']) ? $_POST['model'] : '';
+    $qty = isset($_POST['qty']) ? $_POST['qty'] : '';
+    $error = -1;
 
-require "shared/connect.php";
+    require "shared/connect.php";
 
-    if ($model != ''){
+        if ($model != ''){
 
-        $sql = "select model from models where model = '$model'";
-        $sth = $dbh->prepare($sql);
-        $sth->execute();
-        $count = $sth->rowCount();
+            $sql = 'select model from models where model = \'$model\'';
+            $sth = $dbh->prepare($sql);
+            $sth->execute();
+            $count = $sth->rowCount();
 
-        if($count > 0){
-            $sql = "UPDATE models SET count = count +1 WHERE model = '$model'";
-            $dbh->exec($sql);
-            $error = 0;
-
+            if($count > 0){
+                if($qty == '') {
+                    $sql = "UPDATE models SET count = count +1 WHERE model = '$model'";
+                    $dbh->exec($sql);
+                    $error = 0;
+                }
+                else{
+                    $sql = "UPDATE models SET count = count +$qty WHERE model = '$model'";
+                    $dbh->exec($sql);
+                    $error = 0;
+                    echo $sql;
+                }
+            }
+            else{
+                $error = 1;
+            }
         }
-        else{
-            $error = 1;
-        }
-    }
 
-/*$sql = "select * from data where model = '$model'";
-$sth = $dbh->prepare($sql);
-$sth->execute();
-$available = $sth->fetchAll();
-$count = $sth->rowCount();
-
-$dbh=null;*/
+    $dbh=null;
 
 ?>
 <!DOCTYPE html>
@@ -38,13 +40,9 @@ $dbh=null;*/
     <meta charset="UTF-8">
     <title>Inventory Count</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="JsBarcode.all.min.js"></script>
-    <!--<script src="bar.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-aNUYGqSUL9wG/vP7+cWZ5QOM4gsQou3sBfWRr/8S3R1Lv0rysEmnwsRKMbhiQX/O" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container" id="container1">
@@ -57,6 +55,9 @@ $dbh=null;*/
             <div class="form-group">
                 <input id="model" name="model" class="auto form-control" placeholder="Model" type="text" />
             </div>
+            <div class="form-group">
+                <input id="qty" name="qty" class="form-control" placeholder="Qty" type="number" />
+            </div>
             <div class="btn-group d-flex" role="group">
                 <button class="btn btn-primary w-100" id="generate" type="submit">Add</button>
             </div>
@@ -68,8 +69,8 @@ $dbh=null;*/
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
 <script type="text/javascript">
     $(function() {
 
