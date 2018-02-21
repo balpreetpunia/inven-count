@@ -23,7 +23,6 @@
                     $sql = "UPDATE models SET count = count +$qty WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
-                    echo $sql;
                 }
             }
             else{
