@@ -8,7 +8,7 @@
 
         if ($model != ''){
 
-            $sql = 'select model from models where model = \'$model\'';
+            $sql = "select model from models where model = '$model'";
             $sth = $dbh->prepare($sql);
             $sth->execute();
             $count = $sth->rowCount();
