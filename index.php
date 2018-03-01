@@ -1,8 +1,19 @@
 <?php
 
+    date_default_timezone_set("America/Toronto");
+
     $model = isset($_POST['model']) ? $_POST['model'] : '';
     $qty = isset($_POST['qty']) ? $_POST['qty'] : '';
     $error = -1;
+    $time = date("h:i:sa");
+
+
+    if(!isset($_COOKIE["last"])){
+        setcookie("last", "", 0, "/");
+        setcookie("last_time", "", 0, "/");
+    }
+
+
 
     require "shared/connect.php";
 
@@ -18,11 +29,15 @@
                     $sql = "UPDATE models SET count = count +1 WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
+                    $_COOKIE["last"] = $model;
+                    $_COOKIE["last_time"] = $time;
                 }
                 else{
                     $sql = "UPDATE models SET count = count +$qty WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
+                    $_COOKIE["last"] = $model;
+                    $_COOKIE["last_time"] = $time;
                 }
             }
             else{
@@ -62,16 +77,31 @@
             </div>
         </form>
     </div>
-</div>
-<hr>
-<h3 class="text-center">
+    <hr>
     <?php
-        if ($error==0){echo"$model added";}
+        if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
         elseif($error ==1){
-            echo "Model not found <a href='add.php?model=$model'>Add $model to Database</a>";
+            echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model'>Add $model to Database</a></h3>";
         }
     ?>
-</h3>
+    <?php if(isset($_COOKIE["last"])): ?>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>Last Counted</td>
+            <td>Time</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><?= $_COOKIE["last"]?></td>
+            <td><?= $_COOKIE["last_time"]?></td>
+        </tr>
+        </tbody>
+    </table>
+    <?php endif; ?>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
@@ -88,7 +118,12 @@
 
     });
 </script>
-
+<script>
+    document.addEventListener('keydown', function(event) {
+        if( event.keyCode == 13 || event.keyCode == 17 || event.keyCode == 74 )
+            event.preventDefault();
+    });
+</script>
 <script>console.log("Balpreet Punia \nhttps://balpreetpunia.github.io \n705-500-4784");</script>
 </body>
 </html>
