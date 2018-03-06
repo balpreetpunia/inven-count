@@ -23,7 +23,7 @@
 
     }
 
-    header('Location: /count/');
+    header('Location: /');
 
 
 ?>
