@@ -1,39 +1,39 @@
 <?php
 
-    date_default_timezone_set("America/Toronto");
+date_default_timezone_set("America/Toronto");
 
-    $model = isset($_POST['model']) ? $_POST['model'] : '';
-    $qty = isset($_POST['qty']) ? $_POST['qty'] : '';
-    $error = -1;
+$model = isset($_POST['model']) ? $_POST['model'] : '';
+$qty = isset($_POST['qty']) ? $_POST['qty'] : '';
+$error = -1;
 
 
-    require "shared/connect.php";
+require "shared/connect.php";
 
-        if ($model != ''){
+if ($model != ''){
 
-            $sql = "select model from models where model = '$model'";
-            $sth = $dbh->prepare($sql);
-            $sth->execute();
-            $count = $sth->rowCount();
+    $sql = "select model from models where model = '$model'";
+    $sth = $dbh->prepare($sql);
+    $sth->execute();
+    $count = $sth->rowCount();
 
-            if($count > 0){
-                if($qty == '') {
-                    $sql = "UPDATE models SET count = count +1 WHERE model = '$model'";
-                    $dbh->exec($sql);
-                    $error = 0;
-                }
-                else{
-                    $sql = "UPDATE models SET count = count +$qty WHERE model = '$model'";
-                    $dbh->exec($sql);
-                    $error = 0;
-                }
-            }
-            else{
-                $error = 1;
-            }
+    if($count > 0){
+        if($qty == '') {
+            $sql = "UPDATE count SET count = count +1 WHERE model = '$model'";
+            $dbh->exec($sql);
+            $error = 0;
         }
+        else{
+            $sql = "UPDATE count SET count = count +$qty WHERE model = '$model'";
+            $dbh->exec($sql);
+            $error = 0;
+        }
+    }
+    else{
+        $error = 1;
+    }
+}
 
-    $dbh=null;
+$dbh=null;
 
 ?>
 <!DOCTYPE html>
@@ -67,10 +67,10 @@
     </div>
     <hr>
     <?php
-        if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
-        elseif($error ==1){
-            echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model'>Add $model to Database</a></h3>";
-        }
+    if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
+    elseif($error ==1){
+        echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model'>Add $model to Database</a></h3>";
+    }
     ?>
 </div>
 
@@ -91,15 +91,18 @@
     });
 </script>
 <script>
-    <!--document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function(event) {
         if( event.keyCode == 17 || event.keyCode == 74 ) {
             event.preventDefault();
             document.getElementById("calculator").submit();
         }
     });
-    -->
     document.getElementById("model").focus();
 </script>
 <script>console.log("Balpreet Punia \nhttps://balpreetpunia.github.io \n705-500-4784");</script>
 </body>
 </html>
+
+
+
+
