@@ -53,7 +53,7 @@ $dbh=null;
         <p>Select model to add to inventory. DO NOT REFRESH AFTER ADDING.</p>
     </div>
     <div class="input-field">
-        <form id="calculator" method="post" action="https://inven-count.herokuapp.com/scan.php">
+        <form id="calculator" method="post" action="/scan.php">
             <div class="form-group">
                 <input id="model" name="model" class="auto form-control" placeholder="Model" type="text" />
             </div>
