@@ -8,7 +8,7 @@ if (isset($_GET['term'])){
         $dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
         $stmt = $dbh->prepare('SELECT model FROM models WHERE model LIKE :term');
-        $stmt->execute(array('term' => '%'.$_GET['term'].'%'));
+        $stmt->execute(array('term' => $_GET['term'].'%'));
 
         while($row = $stmt->fetch()) {
             $return_arr[] =  $row['model'];
