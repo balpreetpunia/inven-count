@@ -84,7 +84,7 @@ $dbh=null;
 
         //autocomplete
         $(".auto").autocomplete({
-            source: "search.php",
+            source: "search_ra.php",
             minLength: 1
         });
 
