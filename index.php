@@ -91,13 +91,6 @@
     });
 </script>
 <script>
-    <!--document.addEventListener('keydown', function(event) {
-        if( event.keyCode == 17 || event.keyCode == 74 ) {
-            event.preventDefault();
-            document.getElementById("calculator").submit();
-        }
-    });
-    -->
     document.getElementById("model").focus();
 </script>
 <script>console.log("Balpreet Punia \nhttps://balpreetpunia.github.io \n705-500-4784");</script>
