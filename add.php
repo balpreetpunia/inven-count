@@ -15,7 +15,7 @@
 
         }
         else{
-            $sql = "INSERT INTO models VALUES ('$model',0)";
+            $sql = "INSERT INTO models VALUES ('$model',1)";
             $dbh->exec($sql);
         }
 
