@@ -3,7 +3,8 @@
 date_default_timezone_set("America/Toronto");
 
 $model = isset($_POST['model']) ? $_POST['model'] : '';
-$qty = isset($_POST['qty']) ? $_POST['qty'] : '';
+$model = strtoupper($model);
+$qty = !empty($_POST['qty']) ? $_POST['qty'] : 1;
 $error = -1;
 
 
@@ -11,19 +12,19 @@ require "shared/connect.php";
 
 if ($model != ''){
 
-    $sql = "select model from models_ra where model = '$model'";
+    $sql = "select model from inventory_ra where model = '$model'";
     $sth = $dbh->prepare($sql);
     $sth->execute();
     $count = $sth->rowCount();
 
     if($count > 0){
         if($qty == '') {
-            $sql = "UPDATE models_ra SET count = count +1 WHERE model = '$model'";
+            $sql = "UPDATE inventory_ra SET counted = counted +1 WHERE model = '$model'";
             $dbh->exec($sql);
             $error = 0;
         }
         else{
-            $sql = "UPDATE models_ra SET count = count +$qty WHERE model = '$model'";
+            $sql = "UPDATE inventory_ra SET counted = counted +$qty WHERE model = '$model'";
             $dbh->exec($sql);
             $error = 0;
         }
@@ -49,11 +50,11 @@ $dbh=null;
 <body>
 <div class="container" id="container1">
     <div class="jumbotron">
-        <h1>Count Inventory (RA)</h1>
+        <h1>Count Inventory</h1>
         <p>Select model to add to inventory. DO NOT REFRESH AFTER ADDING.</p>
     </div>
     <div class="input-field">
-        <form id="calculator" method="post" action="/ra.php">
+        <form id="calculator" method="post" action="">
             <div class="form-group">
                 <input id="model" name="model" class="auto form-control" placeholder="Model" type="text" />
             </div>
@@ -69,7 +70,7 @@ $dbh=null;
     <?php
     if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
     elseif($error ==1){
-        echo "<h3 class='text-center'>Model not found <a href='add_ra.php.php?model=$model'>Add $model to Database</a></h3>";
+        echo "<h3 class='text-center'>Model not found <a href='add_ra.php?model=$model&qty=$qty'>Add $model to Database Qty : $qty</a></h3>";
     }
     ?>
 </div>
@@ -84,7 +85,7 @@ $dbh=null;
 
         //autocomplete
         $(".auto").autocomplete({
-            source: "search_ra.php",
+            source: "search.php",
             minLength: 1
         });
 
