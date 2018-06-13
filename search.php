@@ -4,14 +4,14 @@
 if (isset($_GET['term'])){
     $return_arr = array();
     try {
-        $dbh = new PDO("mysql:host=us-cdbr-azure-southcentral-e.cloudapp.net;dbname=acsm_03a9a5b692a77f1","b81a903bbbb0b7","606b3f2e");
+        $dbh = new PDO("mysql:host=den1.mysql5.gear.host;dbname=teletimeinven","teletimeinven","Fr47flr_?293");
         $dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-        $stmt = $dbh->prepare('SELECT model FROM models WHERE model LIKE :term');
+        $stmt = $dbh->prepare('SELECT Model FROM inventory WHERE Model LIKE :term');
         $stmt->execute(array('term' => $_GET['term'].'%'));
 
         while($row = $stmt->fetch()) {
-            $return_arr[] =  $row['model'];
+            $return_arr[] =  $row['Model'];
         }
     } catch(PDOException $e) {
         echo 'ERROR: ' . $e->getMessage();
