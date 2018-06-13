@@ -3,7 +3,9 @@
 date_default_timezone_set("America/Toronto");
 
 $model = isset($_POST['model']) ? $_POST['model'] : '';
-$qty = isset($_POST['qty']) ? $_POST['qty'] : '';
+$model = strtoupper($model);
+
+$qty = !empty($_POST['qty']) ? $_POST['qty'] : 1;
 $error = -1;
 
 
@@ -11,19 +13,19 @@ require "shared/connect.php";
 
 if ($model != ''){
 
-    $sql = "select model from models where model = '$model'";
+    $sql = "select model from inventory where model = '$model'";
     $sth = $dbh->prepare($sql);
     $sth->execute();
     $count = $sth->rowCount();
 
     if($count > 0){
         if($qty == '') {
-            $sql = "UPDATE count SET count = count +1 WHERE model = '$model'";
+            $sql = "UPDATE inventory SET counted = counted +1 WHERE model = '$model'";
             $dbh->exec($sql);
             $error = 0;
         }
         else{
-            $sql = "UPDATE count SET count = count +$qty WHERE model = '$model'";
+            $sql = "UPDATE inventory SET counted = counted +$qty WHERE model = '$model'";
             $dbh->exec($sql);
             $error = 0;
         }
@@ -69,7 +71,7 @@ $dbh=null;
     <?php
     if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
     elseif($error ==1){
-        echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model'>Add $model to Database</a></h3>";
+        echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model&qty=$qty'>Add $model to Database Qty : $qty</a></h3>";
     }
     ?>
 </div>
