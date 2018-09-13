@@ -57,6 +57,9 @@ $dbh=null;
     <div class="input-field">
         <form id="calculator" method="post" action="/scan.php">
             <div class="form-group">
+                <input id="upc" name="upc" class="auto form-control" placeholder="UPC" type="text" />
+            </div>
+            <div class="form-group">
                 <input id="model" name="model" class="auto form-control" placeholder="Model" type="text" />
             </div>
             <div class="form-group">
@@ -99,7 +102,7 @@ $dbh=null;
             document.getElementById("calculator").submit();
         }
     });
-    document.getElementById("model").focus();
+    document.getElementById("upc").focus();
 </script>
 <script>console.log("Balpreet Punia \nhttps://balpreetpunia.github.io \n705-500-4784");</script>
 </body>
