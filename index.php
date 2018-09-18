@@ -6,7 +6,7 @@
     $model = strtoupper($model);
     $qty = !empty($_POST['qty']) ? $_POST['qty'] : 1;
     $error = -1;
-
+    $time = date("Y-m-d H:i:s");
 
     require "shared/connect.php";
 
@@ -19,12 +19,12 @@
 
             if($count > 0){
                 if($qty == '') {
-                    $sql = "UPDATE inventory SET counted = counted +1 WHERE model = '$model'";
+                    $sql = "UPDATE inventory SET counted = counted +1 , Last_Updated = '$time' WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
                 }
                 else{
-                    $sql = "UPDATE inventory SET counted = counted +$qty WHERE model = '$model'";
+                    $sql = "UPDATE inventory SET counted = counted +$qty , Last_Updated = '$time' WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
                 }
