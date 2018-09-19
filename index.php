@@ -56,6 +56,7 @@
     <div class="jumbotron">
         <h1>Count Inventory</h1>
         <p>Select model to add to inventory. DO NOT REFRESH AFTER ADDING.</p>
+        <button class="btn btn-outline-primary w-100" onclick="location='view.php'" ">VIEW ADDED MODELS</button>
     </div>
     <div class="input-field">
         <form id="calculator" method="post" action="">
@@ -66,7 +67,7 @@
                 <input id="qty" name="qty" class="form-control" placeholder="Qty" type="number" />
             </div>
             <div class="btn-group d-flex" role="group">
-                <button class="btn btn-primary w-100" id="generate" type="submit">Add</button>
+                <button class="btn btn-primary w-100" id="generate" type="submit">ADD</button>
             </div>
         </form>
     </div>
