@@ -7,14 +7,16 @@
     $qty = !empty($_POST['qty']) ? $_POST['qty'] : 1;
     $error = -1;
     $time = date("Y-m-d H:i:s");
+    $postQty = 0;
 
     require "shared/connect.php";
 
         if ($model != ''){
 
-            $sql = "select model from inventory where model = '$model'";
+            $sql = "select model, qty_in_hand, counted from inventory where model = '$model'";
             $sth = $dbh->prepare($sql);
             $sth->execute();
+            $available = $sth->fetchAll();
             $count = $sth->rowCount();
 
             if($count > 0){
@@ -22,11 +24,13 @@
                     $sql = "UPDATE inventory SET counted = counted +1 , Last_Updated = '$time' WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
+                    $postQty = 1;
                 }
                 else{
                     $sql = "UPDATE inventory SET counted = counted +$qty , Last_Updated = '$time' WHERE model = '$model'";
                     $dbh->exec($sql);
                     $error = 0;
+                    $postQty = $qty;
                 }
             }
             else{
@@ -68,7 +72,8 @@
     </div>
     <hr>
     <?php
-        if ($error==0){echo"<h3 class='text-center'>$model Added</h3>";}
+        if ($error==0){
+            echo"<h3 class='text-center'>$model Added</h3><br><h6>In Hand: ".$available[0]['qty_in_hand']." Counted: ".($available[0]['counted']+($postQty))."</h6>";}
         elseif($error ==1){
             echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model&qty=$qty'>Add $model to Database Qty : $qty</a></h3>";
         }
