@@ -49,10 +49,11 @@ $count = $sth->rowCount();
             </thead>
             <tbody>
             <?php foreach ($available as $avail ): ?>
-                <tr>
+            <?php $a_counted = $avail['counted'];$a_hand = $avail['qty_in_hand'];?>
+                <tr<?php if($a_counted >= $a_hand){echo " class = table-success";}?>>
                     <td><?= $avail['model']?></td>
-                    <td><?= $avail['counted']?></td>
-                    <td><?= $avail['qty_in_hand']?></td>
+                    <td><?= $a_counted?></td>
+                    <td><?= $a_hand?></td>
                     <td><?php $date = date_create($avail['last_updated']); echo date_format($date, 'g:i:s A');?></td>
                 </tr>
             <?php endforeach ?>
