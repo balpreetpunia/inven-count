@@ -24,7 +24,7 @@ if($model != ''){
 
 }
 
-header('Location: /');
+header('Location: /ra.php');
 
 
 ?>
