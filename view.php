@@ -50,7 +50,16 @@ $count = $sth->rowCount();
             <tbody>
             <?php foreach ($available as $avail ): ?>
             <?php $a_counted = $avail['counted'];$a_hand = $avail['qty_in_hand'];?>
-                <tr<?php if($a_counted >= $a_hand){echo " class = table-success";}?>>
+                <tr<?php
+                if($a_counted == $a_hand){
+                    echo " class =  ";
+                }
+                else if($a_counted > $a_hand){
+                    echo " class = table-info";
+                }
+                else
+                    echo " class = table-danger";
+                ?>>
                     <td><?= $avail['model']?></td>
                     <td><?= $a_counted?></td>
                     <td><?= $a_hand?></td>
