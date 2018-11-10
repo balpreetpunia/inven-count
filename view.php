@@ -35,6 +35,11 @@ $count = $sth->rowCount();
         <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search By Model..." title="Type in a model">
         <div class="input-group-append">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <button type="button" class="btn btn-outline-dark" onclick="showRed()">▼</button>
+            <button type="button" class="btn btn-outline-dark" onclick="showYellow()">▲</button>
+        </div>
+        <div class="input-group-append">
+
         </div>
     </div>
     <div class="table-responsive">
@@ -52,7 +57,7 @@ $count = $sth->rowCount();
             <?php $a_counted = $avail['counted'];$a_hand = $avail['qty_in_hand'];?>
                 <tr<?php
                 if($a_counted == $a_hand){
-                    echo " class =  ";
+                    echo " class =  table-normal";
                 }
                 else if($a_counted > $a_hand){
                     echo " class = table-info";
@@ -90,6 +95,50 @@ $count = $sth->rowCount();
                 } else {
                     tr[i].style.display = "none";
                 }
+            }
+        }
+    }
+    function showRed() {
+        this.reset();
+        var reset = 0;
+        var table = document.getElementById("myTable");
+        var tn = table.getElementsByClassName("table-normal");
+        var ty = table.getElementsByClassName("table-info");
+        for (var i = 0;i<tn.length;i++){
+            if(reset == 0){
+                tn[i].style.display = "none";
+            }
+        }
+        for (var i = 0;i<ty.length;i++){
+            if(reset == 0){
+                ty[i].style.display = "none";
+            }
+        }
+    }
+    function showYellow() {
+        this.reset();
+        var reset = 0;
+        var table = document.getElementById("myTable");
+        var tn = table.getElementsByClassName("table-normal");
+        var td = table.getElementsByClassName("table-danger");
+        for (var i = 0;i<tn.length;i++){
+            if(reset == 0){
+                tn[i].style.display = "none";
+            }
+        }
+        for (var i = 0;i<td.length;i++){
+            if(reset == 0){
+                td[i].style.display = "none";
+            }
+        }
+    }
+    function reset() {
+        var table = document.getElementById("myTable");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1;i<tr.length;i++){
+            {
+                tr[i].style.display = "";
             }
         }
     }
