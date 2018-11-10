@@ -98,38 +98,58 @@ $count = $sth->rowCount();
             }
         }
     }
+    var red = 0;
+    var yellow = 0;
     function showRed() {
         this.reset();
-        var reset = 0;
         var table = document.getElementById("myTable");
         var tn = table.getElementsByClassName("table-normal");
         var ty = table.getElementsByClassName("table-info");
-        for (var i = 0;i<tn.length;i++){
-            if(reset == 0){
-                tn[i].style.display = "none";
+        if(red == 0) {
+            for (var i = 0;i < tn . length;i++){
+                tn[i] . style . display = "none";
             }
-        }
-        for (var i = 0;i<ty.length;i++){
-            if(reset == 0){
+            for (var i = 0;i<ty.length;i++){
                 ty[i].style.display = "none";
             }
+            red = 1;
+            yellow = 0;
+        }
+        else{
+            for (var i = 0;i < tn . length;i++){
+                tn[i] . style . display = "";
+            }
+            for (var i = 0;i<ty.length;i++){
+                ty[i].style.display = "";
+            }
+            red = 0;
+            yellow = 0;
         }
     }
     function showYellow() {
         this.reset();
-        var reset = 0;
         var table = document.getElementById("myTable");
         var tn = table.getElementsByClassName("table-normal");
         var td = table.getElementsByClassName("table-danger");
-        for (var i = 0;i<tn.length;i++){
-            if(reset == 0){
-                tn[i].style.display = "none";
+        if(yellow == 0) {
+            for (var i = 0;i < tn . length;i++){
+                tn[i] . style . display = "none";
             }
-        }
-        for (var i = 0;i<td.length;i++){
-            if(reset == 0){
+            for (var i = 0;i<td.length;i++){
                 td[i].style.display = "none";
             }
+            red = 0;
+            yellow = 1;
+        }
+        else{
+            for (var i = 0;i < tn . length;i++){
+                tn[i] . style . display = "";
+            }
+            for (var i = 0;i<td.length;i++){
+                td[i].style.display = "";
+            }
+            red = 0;
+            yellow = 0;
         }
     }
     function reset() {
