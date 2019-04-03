@@ -2,7 +2,7 @@
 
 require 'shared/connect.php';
 
-$sql = "select model, counted, qty_in_hand, last_updated from inventory where counted > 0 order by last_updated desc";
+$sql = "select model, counted, qty_in_hand, last_updated , list_cost from inventory where counted > 0 order by last_updated desc";
 $sth = $dbh->prepare($sql);
 $sth->execute();
 $available = $sth->fetchAll();
@@ -71,8 +71,8 @@ $count = $sth->rowCount();
                     <td><?= $avail['model']?></td>
                     <td><?= $a_counted?></td>
                     <td><?= $a_hand?></td>
-                    <td><?= $avail['cost']?></td>
-                    <td><?php $total += ($a_counted*$avail['List_Cost']); echo $total;?></td>
+                    <td><?= $avail['list_cost']?></td>
+                    <td><?php $total += ($a_counted*$avail['list_cost']); echo $total;?></td>
                     <td><?php $date = date_create($avail['last_updated']); echo date_format($date, 'g:i:s A');?></td>
                 </tr>
             <?php endforeach ?>
