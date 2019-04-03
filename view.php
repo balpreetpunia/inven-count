@@ -49,10 +49,13 @@ $count = $sth->rowCount();
                 <td>Model</td>
                 <td>Counted</td>
                 <td>In Hand</td>
+                <td>Cost</td>
+                <td>Amount</td>
                 <td>Time Counted</td>
             </tr>
             </thead>
             <tbody>
+            <?php $total = 0;?>
             <?php foreach ($available as $avail ): ?>
             <?php $a_counted = $avail['counted'];$a_hand = $avail['qty_in_hand'];?>
                 <tr<?php
@@ -68,9 +71,12 @@ $count = $sth->rowCount();
                     <td><?= $avail['model']?></td>
                     <td><?= $a_counted?></td>
                     <td><?= $a_hand?></td>
+                    <td><?= $avail['List_Cost']?></td>
+                    <td><?php $total += $a_counted*$avail['List_Cost'] ?></td>
                     <td><?php $date = date_create($avail['last_updated']); echo date_format($date, 'g:i:s A');?></td>
                 </tr>
             <?php endforeach ?>
+            <tr><td>Total : <?=$total?></td></tr>
             </tbody>
         </table>
     </div>
