@@ -72,7 +72,7 @@ $count = $sth->rowCount();
                     <td><?= $a_counted?></td>
                     <td><?= $a_hand?></td>
                     <td><?= $avail['List_Cost']?></td>
-                    <td><?php $total += $a_counted*$avail['List_Cost'] ?></td>
+                    <td><?php $total += ($a_counted*$avail['List_Cost']) ?></td>
                     <td><?php $date = date_create($avail['last_updated']); echo date_format($date, 'g:i:s A');?></td>
                 </tr>
             <?php endforeach ?>
