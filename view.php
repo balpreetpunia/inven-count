@@ -49,7 +49,6 @@ $count = $sth->rowCount();
                 <td>Model</td>
                 <td>Counted</td>
                 <td>In Hand</td>
-                <td>Cost</td>
                 <td>Time Counted</td>
             </tr>
             </thead>
@@ -70,7 +69,6 @@ $count = $sth->rowCount();
                     <td><?= $avail['model']?></td>
                     <td><?= $a_counted?></td>
                     <td><?= $a_hand?></td>
-                    <td><?= $avail['list_cost']?></td>
                     <td><?php $date = date_create($avail['last_updated']); echo date_format($date, 'g:i:s A');?></td>
                 </tr>
             <?php endforeach ?>
