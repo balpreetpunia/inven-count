@@ -74,9 +74,9 @@ $dbh=null;
     <hr>
     <?php
     if ($error==0){
-        echo"<h3 class='text-center'>$model Added</h3><br><h6 class='text-center'>In Hand: ".$available[0]['qty_in_hand']." Counted: ".($available[0]['counted']+($postQty))."</h6>";}
+        echo"<h3 class='text-center'>$available[0]['model'] Added</h3><br><h6 class='text-center'>In Hand: ".$available[0]['qty_in_hand']." Counted: ".($available[0]['counted']+($postQty))."</h6>";}
     elseif($error ==1){
-        echo "<h3 class='text-center'>Model not found <a href='add.php?model=$model&qty=$qty'>Add $model to Database Qty : $qty</a></h3>";
+        echo "<h3 class='text-center'>Model not found </h3>";
     }
     ?>
 </div>
