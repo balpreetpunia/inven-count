@@ -3,7 +3,7 @@
 date_default_timezone_set("America/Toronto");
 
 $barcode = isset($_POST['barcode']) ? $_POST['barcode'] : '';
-$model = strtoupper($model);
+$model = '';
 $qty = !empty($_POST['qty']) ? $_POST['qty'] : 1;
 $error = -1;
 $time = date("Y-m-d H:i:s");
@@ -21,13 +21,13 @@ if ($model != ''){
 
     if($count > 0){
         if($qty == '') {
-            $sql = "UPDATE inventory SET counted = counted +1 , Last_Updated = '$time' WHERE bracode = '$bracode'";
+            $sql = "UPDATE inventory SET counted = counted +1 , Last_Updated = '$time' WHERE barcode = '$barcode'";
             $dbh->exec($sql);
             $error = 0;
             $postQty = 1;
         }
         else{
-            $sql = "UPDATE inventory SET counted = counted +$qty , Last_Updated = '$time' WHERE bracode = '$bracode'";
+            $sql = "UPDATE inventory SET counted = counted +$qty , Last_Updated = '$time' WHERE barcode = '$barcode'";
             $dbh->exec($sql);
             $error = 0;
             $postQty = $qty;
