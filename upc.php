@@ -11,7 +11,7 @@ $postQty = 0;
 
 require "shared/connect.php";
 
-if ($model != ''){
+if ($barcode != ''){
 
     $sql = "select barcode, model, qty_in_hand, counted from inventory where barcode = '$barcode'";
     $sth = $dbh->prepare($sql);
