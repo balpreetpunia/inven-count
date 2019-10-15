@@ -61,7 +61,7 @@ $dbh=null;
     <div class="input-field">
         <form id="calculator" method="post" action="">
             <div class="form-group">
-                <input id="model" name="model" class="auto form-control" placeholder="Model" type="text" />
+                <input id="barcode" name="barcode" class="auto form-control" placeholder="Barcode" type="text" />
             </div>
             <div class="form-group">
                 <input id="qty" name="qty" class="form-control" placeholder="Qty" type="number" />
