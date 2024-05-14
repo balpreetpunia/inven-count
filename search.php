@@ -4,7 +4,7 @@
 if (isset($_GET['term'])){
     $return_arr = array();
     try {
-        $dbh = new PDO("mysql:host=den1.mysql5.gear.host;dbname=teletimeinven","teletimeinven","Fr47flr_?293");
+        $dbh = new PDO("mysql:host=den1.mysql5.gear.host;dbname=teletimeinven","teletimeinven","Rexdale@407");
         $dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
         $stmt = $dbh->prepare('SELECT Model FROM inventory WHERE Model LIKE :term');
